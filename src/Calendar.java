@@ -30,6 +30,7 @@ public class Calendar {
 			System.out.printf("%d월은 %d일까지 있습니다\n", dal, cal.getMaxDaysOfMonth(dal));
 		}
 
+		System.out.print("Bye~ ");
 		scan.close();
 	}
 
