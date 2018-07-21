@@ -22,9 +22,13 @@ public class Calendar {
 		Scanner scan = new Scanner(System.in);
 		Calendar cal = new Calendar();
 
-		System.out.print("달을 입력하세요 : ");
-		int dal = scan.nextInt();
-		System.out.printf("%d월은 %d일까지 있습니다", dal, cal.getMaxDaysOfMonth(dal));
+		System.out.print("몇 번 실행하고 싶나요? ");
+		int num = scan.nextInt();
+		for (int i = 0; i < num; i++) {
+			System.out.print("출력받고 싶은 달을 입력하세요 : ");
+			int dal = scan.nextInt();
+			System.out.printf("%d월은 %d일까지 있습니다\n", dal, cal.getMaxDaysOfMonth(dal));
+		}
 
 		scan.close();
 	}
