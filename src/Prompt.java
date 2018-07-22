@@ -7,19 +7,21 @@ public class Prompt {
 			// 입력받은 월의 최대 일수 출력하기
 			Scanner scan = new Scanner(System.in);
 			Calendar cal = new Calendar();
-			String PROMPT = "cal> ";
 
 			while (true) {
-				System.out.println("출력받고 싶은 달을 입력하세요");
-				System.out.print(PROMPT);
-				int dal = scan.nextInt();
-				if(dal == -1) {
+				System.out.println("출력받고 싶은 년도를 입력하세요");
+				System.out.print("YEAR> ");
+				int year = scan.nextInt();
+				if(year == -1) {
 					break;
 				}
-				if(dal < -1 || dal > 12 || dal == 0){
+				System.out.println("출력받고 싶은 월을 입력하세요");
+				System.out.print("MONTH> ");
+				int month = scan.nextInt();				
+				if(month < -1 || month > 12 || month == 0){
 					continue;
 				}
-				cal.PrintCalendar(2018, dal);
+				cal.PrintCalendar(year, month);
 				System.out.println();
 				System.out.println();
 			}
