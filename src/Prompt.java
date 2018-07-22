@@ -22,10 +22,7 @@ public class Prompt {
 				System.out.println("잘못된 입력입니다");
 				continue;
 			}
-			System.out.println("첫번째 요일을 입력하세요(SU, MO, WE, TH, FR, SA)");
-			System.out.print("WEEKDAY> ");
-			String weekday = scan.next();
-			cal.PrintCalendar(year, month, weekday);
+			cal.PrintCalendar(year, month);
 			System.out.println();
 			System.out.println();
 		}

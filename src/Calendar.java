@@ -21,30 +21,32 @@ public class Calendar {
 		}
 	}
 
-	/**
-	 * 
-	 * @param day
-	 * @return Sunday: 0 ~ Saturday: 6
-	 */
-	public int ParseDay(String day) {
-		switch (day) {
-		case "SU":
-			return 0;
-		case "MO":
-			return 1;
-		case "TU":
-			return 2;
-		case "WE":
-			return 3;
-		case "TH":
-			return 4;
-		case "FR":
-			return 5;
-		case "SA":
-			return 6;
-		default:
-			return 0;
+	private int leap_num(int year) {
+		return year/4 - year/100 + year/400;
+	}
+	
+	public int ParseDay(int year, int month) {
+		// 기준년도 정보와 해당년도 정보 변수 저장 
+		int syear=1970, smonth=1, sday=4;
+		int eyear=year, emonth=month, eday=0;
+		
+		int bwt_year = eyear - syear;
+		int bwt_leap = leap_num(eyear-1) - leap_num(syear-1);  // 두 연도간 윤년의 개수
+		int bwt_normal = bwt_year - bwt_leap;  // 두 연도간 평년의 개수
+		int jump_day = (bwt_leap*2 + bwt_normal)%7;
+	
+		eday = (sday + jump_day)%7;  // 해당연도 1월 1일 요일
+		
+		int day_sum = 0;
+		for(int i=0; i<emonth-1; i++) {
+			if(isLeapYear(eyear)) {
+				day_sum += LEAP_MAX_DAYS[i];
+			}else {
+				day_sum += MAX_DAYS[i];
+			}
 		}
+		
+		return (eday+day_sum)%7;
 	}
 
 	public void PrintHead(int year, int month) {
@@ -53,9 +55,9 @@ public class Calendar {
 		System.out.println(" --------------------");
 	}
 
-	public void PrintCalendar(int year, int month, String day) {
+	public void PrintCalendar(int year, int month) {
 		int MaxDay = getMaxDaysOfMonth(year, month);
-		int Day_order = ParseDay(day);
+		int Day_order = ParseDay(year, month);
 		int Blank_num = 0;
 
 		PrintHead(year, month);
