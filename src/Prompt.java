@@ -1,8 +1,8 @@
 import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Scanner;
 import java.util.Date;
+import java.util.Scanner;
 
 public class Prompt {
 
@@ -29,8 +29,9 @@ public class Prompt {
 	public void runPrompt() {
 		// 입력받은 월의 최대 일수 출력하기
 		Scanner scan = new Scanner(System.in);
-		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		Calendar cal = new Calendar();
+		PlanItem plan = new PlanItem();
+		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		String PROMPT = "> ";
 		boolean shutdown = false;
 
@@ -55,14 +56,14 @@ public class Prompt {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-				cal.RegisterDate(RegisDate, Schedule); // 일정등록
+				plan.RegisterDate(RegisDate, Schedule); // 일정등록
 				break;
 			case "2":
 				System.out.println("[일정 검색] 날짜를 입력하세요(yyyy-MM-dd)");
 				System.out.print(PROMPT);
 				String FindDate_str = scan.next();
 				Date FindDate = StringToDate(FindDate_str);
-				cal.SearchDate(FindDate);
+				plan.SearchDate(FindDate);
 				break;
 			case "3":
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy MM");
