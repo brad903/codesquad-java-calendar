@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 public class PlanItem {
 	HashMap<Date, ArrayList<String>> CalSchedule = new HashMap<Date, ArrayList<String>>();
+	static final String savefile="./src/PlanData.dat";
 	
 	public void RegisterDate(Date regisDate, String ScheduleData) {
 		ArrayList<String> ScheduleList = CalSchedule.get(regisDate);
@@ -24,7 +25,7 @@ public class PlanItem {
 		
 		// 파일에 데이터 저장
 		try {
-			FileOutputStream fos = new FileOutputStream("./src/PlanData.txt");
+			FileOutputStream fos = new FileOutputStream(savefile);
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
 			oos.writeObject(CalSchedule);
 			oos.close();

@@ -38,23 +38,25 @@ public class Prompt {
 		boolean shutdown = false;
 		
 		// 파일에서 데이터 읽어서 저장
-		File PlanData = new File("./src/PlanData.txt");
+		File PlanData = new File(PlanItem.savefile);
 		
 		// 파일 존재 여부 판단
 		if(PlanData.isFile()) {
 			plan.CalSchedule = null;
 			try {
-				FileInputStream fis = new FileInputStream("./src/PlanData.txt");
+				FileInputStream fis = new FileInputStream(PlanData);
 				ObjectInputStream ois = new ObjectInputStream(fis);
 				plan.CalSchedule = (HashMap<Date, ArrayList<String>>) ois.readObject();
 				ois.close();
 				fis.close();
 			}catch(IOException ioe) {
 				ioe.printStackTrace();
+				scan.close();
 				return;
 			}catch(ClassNotFoundException c) {
 				System.out.println("Class not found");
 				c.printStackTrace();
+				scan.close();
 				return;
 			}
 		}
