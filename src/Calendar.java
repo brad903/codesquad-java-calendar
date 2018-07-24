@@ -1,4 +1,9 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class Calendar {
+	HashMap<String, ArrayList<String>> CalSchedule = new HashMap<String, ArrayList<String>>();
+
 	private static final int[] MAX_DAYS = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 	private static final int[] LEAP_MAX_DAYS = { 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
@@ -22,31 +27,31 @@ public class Calendar {
 	}
 
 	private int leap_num(int year) {
-		return year/4 - year/100 + year/400;
+		return year / 4 - year / 100 + year / 400;
 	}
-	
+
 	public int ParseDay(int year, int month) {
-		// 기준년도 정보와 해당년도 정보 변수 저장 
-		int syear=1970, smonth=1, sday=4;
-		int eyear=year, emonth=month, eday=0;
-		
+		// 기준년도 정보와 해당년도 정보 변수 저장
+		int syear = 1970, smonth = 1, sday = 4;
+		int eyear = year, emonth = month, eday = 0;
+
 		int bwt_year = eyear - syear;
-		int bwt_leap = leap_num(eyear-1) - leap_num(syear-1);  // 두 연도간 윤년의 개수
-		int bwt_normal = bwt_year - bwt_leap;  // 두 연도간 평년의 개수
-		int jump_day = (bwt_leap*2 + bwt_normal)%7;
-	
-		eday = (sday + jump_day)%7;  // 해당연도 1월 1일 요일
-		
+		int bwt_leap = leap_num(eyear - 1) - leap_num(syear - 1); // 두 연도간 윤년의 개수
+		int bwt_normal = bwt_year - bwt_leap; // 두 연도간 평년의 개수
+		int jump_day = (bwt_leap * 2 + bwt_normal) % 7;
+
+		eday = (sday + jump_day) % 7; // 해당연도 1월 1일 요일
+
 		int day_sum = 0;
-		for(int i=0; i<emonth-1; i++) {
-			if(isLeapYear(eyear)) {
+		for (int i = 0; i < emonth - 1; i++) {
+			if (isLeapYear(eyear)) {
 				day_sum += LEAP_MAX_DAYS[i];
-			}else {
+			} else {
 				day_sum += MAX_DAYS[i];
 			}
 		}
-		
-		return (eday+day_sum)%7;
+
+		return (eday + day_sum) % 7;
 	}
 
 	public void PrintHead(int year, int month) {
@@ -74,6 +79,45 @@ public class Calendar {
 				Blank_num = 0;
 			}
 		}
+		System.out.println();
+		System.out.println();
+		
+	}
+
+	public void RegisterDate(String regisDate, String ScheduleData) {
+		ArrayList<String> ScheduleList = CalSchedule.get(regisDate); 
+		
+		// 해당 날짜에 일정이 없을 경우
+		if (ScheduleList == null) {			
+			ScheduleList = new ArrayList<String>();
+			ScheduleList.add(ScheduleData);
+			CalSchedule.put(regisDate, ScheduleList);
+			System.out.println("일정이 생성되었습니다.");
+		}
+		// 해당 날짜에 일정이 있을 경우
+		else {
+			ScheduleList.add(ScheduleData);
+			System.out.println("일정이 추가되었습니다.");
+		}
+
+	}
+
+	public void SearchDate(String findDate) {
+		ArrayList<String> ScheduleList = CalSchedule.get(findDate);
+		
+		// 해당 날짜에 일정이 없을 경우
+		if (ScheduleList == null) {			
+			System.out.println("해당 날짜에 일정이 없습니다");
+		}
+		// 해당 날짜에 일정이 있을 경우
+		else {
+			int length = ScheduleList.size();
+			System.out.printf("해당 날짜에 %d개의 일정이 있습니다\n", length);
+			for(int i=0; i<length; i++) {
+				System.out.printf("%d. %s\n", i+1, ScheduleList.get(i));
+			}
+		}
+		
 	}
 
 }
