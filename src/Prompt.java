@@ -1,7 +1,9 @@
 import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class Prompt {
@@ -34,6 +36,29 @@ public class Prompt {
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		String PROMPT = "> ";
 		boolean shutdown = false;
+		
+		// 파일에서 데이터 읽어서 저장
+		File PlanData = new File("./src/PlanData.txt");
+		
+		// 파일 존재 여부 판단
+		if(PlanData.isFile()) {
+			plan.CalSchedule = null;
+			try {
+				FileInputStream fis = new FileInputStream("./src/PlanData.txt");
+				ObjectInputStream ois = new ObjectInputStream(fis);
+				plan.CalSchedule = (HashMap<Date, ArrayList<String>>) ois.readObject();
+				ois.close();
+				fis.close();
+			}catch(IOException ioe) {
+				ioe.printStackTrace();
+				return;
+			}catch(ClassNotFoundException c) {
+				System.out.println("Class not found");
+				c.printStackTrace();
+				return;
+			}
+		}
+		
 
 		while (true) {
 			printMenu();

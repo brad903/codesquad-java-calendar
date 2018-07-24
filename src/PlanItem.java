@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -19,6 +20,17 @@ public class PlanItem {
 		else {
 			ScheduleList.add(ScheduleData);
 			System.out.println("일정이 추가되었습니다.");
+		}
+		
+		// 파일에 데이터 저장
+		try {
+			FileOutputStream fos = new FileOutputStream("./src/PlanData.txt");
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			oos.writeObject(CalSchedule);
+			oos.close();
+			fos.close();
+		}catch(IOException ioe) {
+			ioe.printStackTrace();
 		}
 
 	}
