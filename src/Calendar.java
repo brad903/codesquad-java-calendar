@@ -1,8 +1,9 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Date;
 
 public class Calendar {
-	HashMap<String, ArrayList<String>> CalSchedule = new HashMap<String, ArrayList<String>>();
+	HashMap<Date, ArrayList<String>> CalSchedule = new HashMap<Date, ArrayList<String>>();
 
 	private static final int[] MAX_DAYS = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 	private static final int[] LEAP_MAX_DAYS = { 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
@@ -32,7 +33,7 @@ public class Calendar {
 
 	public int ParseDay(int year, int month) {
 		// 기준년도 정보와 해당년도 정보 변수 저장
-		int syear = 1970, smonth = 1, sday = 4;
+		int syear = 1970, sday = 4;
 		int eyear = year, emonth = month, eday = 0;
 
 		int bwt_year = eyear - syear;
@@ -81,14 +82,14 @@ public class Calendar {
 		}
 		System.out.println();
 		System.out.println();
-		
+
 	}
 
-	public void RegisterDate(String regisDate, String ScheduleData) {
-		ArrayList<String> ScheduleList = CalSchedule.get(regisDate); 
-		
+	public void RegisterDate(Date regisDate, String ScheduleData) {
+		ArrayList<String> ScheduleList = CalSchedule.get(regisDate);
+
 		// 해당 날짜에 일정이 없을 경우
-		if (ScheduleList == null) {			
+		if (ScheduleList == null) {
 			ScheduleList = new ArrayList<String>();
 			ScheduleList.add(ScheduleData);
 			CalSchedule.put(regisDate, ScheduleList);
@@ -102,22 +103,22 @@ public class Calendar {
 
 	}
 
-	public void SearchDate(String findDate) {
+	public void SearchDate(Date findDate) {
 		ArrayList<String> ScheduleList = CalSchedule.get(findDate);
-		
+
 		// 해당 날짜에 일정이 없을 경우
-		if (ScheduleList == null) {			
+		if (ScheduleList == null) {
 			System.out.println("해당 날짜에 일정이 없습니다");
 		}
 		// 해당 날짜에 일정이 있을 경우
 		else {
 			int length = ScheduleList.size();
 			System.out.printf("해당 날짜에 %d개의 일정이 있습니다\n", length);
-			for(int i=0; i<length; i++) {
-				System.out.printf("%d. %s\n", i+1, ScheduleList.get(i));
+			for (int i = 0; i < length; i++) {
+				System.out.printf("%d. %s\n", i + 1, ScheduleList.get(i));
 			}
 		}
-		
+
 	}
 
 }
