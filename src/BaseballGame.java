@@ -87,20 +87,6 @@ public class BaseballGame {
 		System.out.println();
 	}
 
-	public boolean judgeOnoff(int result, Scanner scan) {
-		if (result == figures) {
-			System.out.print(figures + "개의 숫자를 모두 맞히셨습니다! 계속하시겠습니까?(y/n) : ");
-			char ans = scan.next().charAt(0);
-			if (ans == 'y') {
-				this.pcValue = randomValue();
-				return true;
-			} else {
-				return false;
-			}
-		}
-		return true;
-	}
-
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
 		BaseballGame game = new BaseballGame();
@@ -143,13 +129,10 @@ public class BaseballGame {
 
 			game.printResult(result[0], result[1]);
 
-			boolean ans = game.judgeOnoff(result[0], scan);
-			if (ans) {
+			if(result[0] == figures) {   // 게임을 종료하는 것이 아니라 새로 시작할 수 있도록 개선(피드백 반영)
+				System.out.println("모두 맞추셨습니다. 게임을 새로 시작합니다.");
+				game.pcValue = randomValue();
 				continue;
-			} else {
-				System.out.println("게임 종료");
-				scan.close();
-				break;
 			}
 		}
 	}
